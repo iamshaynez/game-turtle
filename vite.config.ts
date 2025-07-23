@@ -24,4 +24,8 @@ export default defineConfig({
     }), 
     tsconfigPaths()
   ],
+  server: {
+    port: 8080,
+    host: true
+  }
 })

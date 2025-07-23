@@ -22,17 +22,26 @@ pnpm install
 
 ### 2. 配置环境变量（可选）
 
-复制环境变量示例文件：
+#### 前端配置
+复制前端环境变量示例文件：
 ```bash
 cp .env.example .env
 ```
 
-编辑 `.env` 文件，添加你的OpenAI API密钥：
-```env
-VITE_OPENAI_API_KEY=your_openai_api_key_here
+#### 后端配置（推荐）
+为了安全起见，API密钥现在配置在后端服务器中：
+```bash
+cp server/.env.example server/.env
 ```
 
-> **注意**：如果不配置OpenAI API密钥，游戏将使用模拟回答模式，仍然可以正常游玩。
+编辑 `server/.env` 文件，添加你的OpenAI API密钥：
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_BASE_URL=https://openrouter.ai/api/v1  # 使用OpenRouter
+OPENAI_MODEL=openai/gpt-3.5-turbo
+```
+
+> **注意**：如果不配置API密钥，游戏将使用模拟回答模式，仍然可以正常游玩。
 
 ### 3. 启动开发服务器
 
@@ -44,7 +53,7 @@ pnpm dev
 
 ### 4. 访问游戏
 
-打开浏览器访问 `http://localhost:5173`
+打开浏览器访问 `http://localhost:8080`
 
 **默认密码**：`turtle123`
 
@@ -68,34 +77,45 @@ pnpm dev
 
 ## 🛠️ 技术栈
 
+### 前端
 - **前端框架**：React 18 + TypeScript
 - **构建工具**：Vite
 - **样式方案**：Tailwind CSS
 - **状态管理**：Zustand
 - **路由管理**：React Router
-- **AI集成**：OpenAI GPT API
-- **通知组件**：Sonner
 - **图标库**：Lucide React
+- **通知组件**：Sonner
+
+### 后端
+- **服务器框架**：Express.js
+- **AI集成**：OpenAI SDK
+- **跨域处理**：CORS
+- **环境变量**：dotenv
 
 ## 📁 项目结构
 
 ```
-src/
-├── components/          # 可复用组件
-│   └── ProtectedRoute.tsx
-├── data/               # 游戏数据配置
-│   └── games.json
-├── pages/              # 页面组件
-│   ├── Login.tsx       # 登录页面
-│   ├── GameList.tsx    # 游戏列表页面
-│   └── GameChat.tsx    # 游戏聊天页面
-├── services/           # 服务层
-│   └── openaiService.ts
-├── store/              # 状态管理
-│   └── gameStore.ts
-├── types/              # TypeScript类型定义
-│   └── game.ts
-└── App.tsx             # 主应用组件
+├── src/                    # 前端源码
+│   ├── components/         # 可复用组件
+│   │   └── ProtectedRoute.tsx
+│   ├── data/              # 游戏数据配置
+│   │   └── games.json
+│   ├── pages/             # 页面组件
+│   │   ├── Login.tsx      # 登录页面
+│   │   ├── GameList.tsx   # 游戏列表页面
+│   │   └── GameChat.tsx   # 游戏聊天页面
+│   ├── services/          # 服务层
+│   │   └── openaiService.ts # 后端API服务
+│   ├── store/             # 状态管理
+│   │   └── gameStore.ts   # 游戏状态
+│   ├── types/             # TypeScript类型定义
+│   │   └── game.ts
+│   └── App.tsx            # 主应用组件
+├── server/                # 后端服务器
+│   ├── index.js          # Express服务器
+│   ├── .env.example      # 后端环境变量示例
+│   └── .env              # 后端环境变量（需创建）
+└── package.json          # 项目依赖配置
 ```
 
 ## 🎮 添加新游戏
@@ -147,10 +167,17 @@ npm run build
 
 ### 环境变量配置
 
-在生产环境中，确保设置以下环境变量：
-
-- `VITE_OPENAI_API_KEY` - OpenAI API密钥（可选）
+#### 前端环境变量
+- `VITE_API_BASE_URL` - 后端API地址（默认：http://localhost:3001）
 - `VITE_GAME_PASSWORD` - 游戏登录密码（可选，默认为turtle123）
+
+#### 后端环境变量（推荐配置）
+- `OPENAI_API_KEY` - OpenAI/OpenRouter API密钥
+- `OPENAI_BASE_URL` - API端点（OpenRouter: https://openrouter.ai/api/v1）
+- `OPENAI_MODEL` - AI模型（如：openai/gpt-3.5-turbo）
+- `PORT` - 服务器端口（默认：3001）
+
+> **安全提示**：API密钥现在安全地存储在后端，不会暴露给前端用户。
 
 ## 📝 许可证
 

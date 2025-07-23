@@ -3,6 +3,7 @@ export interface Game {
   title: string;
   description: string;
   answer: string;
+  key: string;
   hints: string[];
 }
 

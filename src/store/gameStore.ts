@@ -13,8 +13,7 @@ interface GameStore extends GameState {
   resetGame: () => void;
 }
 
-const CORRECT_PASSWORD = 'turtle123'; // In production, this should be environment variable
-
+const CORRECT_PASSWORD = import.meta.env.VITE_GAME_PASSWORD || 'turtle123';
 export const useGameStore = create<GameStore>((set, get) => ({
   // Initial state
   currentGame: null,

@@ -51,9 +51,10 @@ export default function GameChat() {
 
     try {
       // Check if OpenAI is configured
-      if (!isOpenAIConfigured()) {
+      const isConfigured = await isOpenAIConfigured();
+      if (!isConfigured) {
         addMessage(
-          '⚠️ OpenAI API未配置。请在环境变量中设置VITE_OPENAI_API_KEY。\n\n作为演示，我会给出模拟回答：\n\n' +
+          '⚠️ OpenAI API未配置。请在后端环境变量中设置OPENAI_API_KEY。\n\n作为演示，我会给出模拟回答：\n\n' +
           getMockResponse(userMessage),
           false
         );
