@@ -1,7 +1,11 @@
 import { Game } from '../types/game';
 
 // Backend API base URL
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+// In production (Vercel), use relative paths to serverless functions
+// In development, use localhost Express server
+const API_BASE_URL = import.meta.env.PROD 
+  ? '' // Use relative paths in production
+  : (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001');
 
 /**
  * Generate AI response for turtle soup game

@@ -157,13 +157,55 @@ npm run lint
 
 ## 🌐 部署
 
-### 构建项目
+### Vercel 部署（推荐）
+
+本项目已配置为支持 Vercel 一键部署，后端API将自动转换为Serverless Functions。
+
+#### 1. 部署到 Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/game-turtle)
+
+或手动部署：
+
+```bash
+# 安装 Vercel CLI
+npm i -g vercel
+
+# 登录并部署
+vercel
+```
+
+#### 2. 配置环境变量
+
+在 Vercel 控制台中设置以下环境变量：
+
+- `OPENAI_API_KEY` - 你的 OpenAI/OpenRouter API 密钥
+- `OPENAI_BASE_URL` - API 端点（可选，默认为 OpenAI）
+- `OPENAI_MODEL` - AI 模型（可选，默认为 gpt-3.5-turbo）
+- `VITE_GAME_PASSWORD` - 游戏登录密码（可选，默认为 turtle123）
+
+#### 3. 重新部署
+
+设置环境变量后，触发重新部署以使配置生效。
+
+### 传统部署
+
+#### 构建项目
 
 ```bash
 npm run build
 ```
 
 构建完成后，`dist` 目录包含所有静态文件，可以部署到任何静态文件服务器。
+
+#### 后端服务器部署
+
+如果不使用 Vercel，需要单独部署后端服务器：
+
+```bash
+# 启动后端服务器
+npm run server
+```
 
 ### 环境变量配置
 

@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "functions": {
+    "api/chat.js": {
+      "maxDuration": 30
+    },
+    "api/health.js": {
+      "maxDuration": 10
+    },
+    "api/config.js": {
+      "maxDuration": 10
+    }
+  },
+  "env": {
+    "OPENAI_API_KEY": "@openai_api_key",
+    "OPENAI_BASE_URL": "@openai_base_url",
+    "OPENAI_MODEL": "@openai_model"
+  }
+}
