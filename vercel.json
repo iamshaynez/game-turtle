@@ -20,14 +20,8 @@
     }
   ],
   "functions": {
-    "api/chat.js": {
-      "maxDuration": 30
-    },
-    "api/health.js": {
-      "maxDuration": 10
-    },
-    "api/config.js": {
-      "maxDuration": 10
+    "api/*.js": {
+      "runtime": "nodejs18.x"
     }
   },
   "env": {
